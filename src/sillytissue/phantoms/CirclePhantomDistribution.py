@@ -23,4 +23,3 @@ class CirclePhantomDistribution:
             self.num_circles = 1
         return self.num_circles
 
-
