@@ -11,17 +11,17 @@ class CirclePhantom:
     def __init__(self, cpd: CirclePhantomDistribution) -> None:
         self.cpd = cpd
         self.circles = []
-        self.sample_circles()
+        self.sample_circles(no_center_boundary=.2)
 
-    def sample_circles(self):
+    def sample_circles(self, no_center_boundary=0):
         """Sample from the CirclePhantom distribution and returns one circle world sample.
         The number of circles is sampled from a normal distribution with mean num_circles_mean but will always be at least 1"""
 
         self.circles = []
         for _ in range(self.cpd.num_circles):
-            x = np.random.uniform(0, 1)
-            y = np.random.uniform(0, 1)
-            z = np.random.uniform(0, 1)
+            x = np.random.uniform(0+no_center_boundary, 1-no_center_boundary)
+            y = np.random.uniform(0+no_center_boundary, 1-no_center_boundary)
+            z = np.random.uniform(0+no_center_boundary, 1-no_center_boundary)
             radius = np.random.normal(self.cpd.radius_mean, self.cpd.radius_sigma)
             self.circles.append((x, y, z, radius))
 
@@ -40,7 +40,7 @@ class CirclePhantom:
             y = np.random.uniform(0, 1)
             z = np.random.uniform(0, 1)
             for cx, cy, cz, r in self.circles:
-                dist_from_circle = np.sqrt((x - cx) ** 2 + (y - cy) ** 2 + (z - cz) ** 2)
+                dist_from_circle = np.abs(np.sqrt((x - cx) ** 2 + (y - cy) ** 2 + (z - cz) ** 2) - r)
                 prob = cct.get_location_prob(dist_from_circle)
                 if prob >= min_prob:
                     return x, y, z
@@ -104,7 +104,7 @@ class CirclePhantom:
                     if prob >= min_prob:
                         return x, y, z
             attempts -= 1
-        return -1, -1
+        return -1, -1, -1
     
     def get_LWC_location(self, lwct:LWCType, attempts=1000) -> tuple:
         """Sample a location for a NC cell. Those cells are placed outside circles but nearby the rim."""

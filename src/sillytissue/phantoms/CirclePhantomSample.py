@@ -45,7 +45,7 @@ class CirclePhantomSample:
             if self.is_location_free(x, y, z, r):
                 self.ccs.append( CircleCell(self.cct, x, y, z, r) )
                 attempts_remaining = self.cct.attempts_to_add
-                print(".", end="")
+                print(".", end="", flush=True)
             attempts_remaining -= 1
 
         print("\nSampling LC1 cells: ", end="")
@@ -59,7 +59,7 @@ class CirclePhantomSample:
             if self.is_location_free(x, y, z, r):
                 self.lc1s.append( LumenCell1(self.lc1t, x, y, z, r) )
                 attempts_remaining = self.lc1t.attempts_to_add
-                print(".", end="")
+                print(".", end="", flush=True)
             attempts_remaining -= 1
 
         print("\nSampling LC2 cells: ", end="")
@@ -73,7 +73,7 @@ class CirclePhantomSample:
             if self.is_location_free(x, y, z, r):
                 self.lc2s.append( LumenCell2(self.lc2t, x, y, z, r) )
                 attempts_remaining = self.lc2t.attempts_to_add
-                print(".", end="")
+                print(".", end="", flush=True)
             attempts_remaining -= 1
 
         print("\nSampling NC cells: ", end="")
@@ -88,7 +88,7 @@ class CirclePhantomSample:
             if self.is_location_free(x, y, z, r):
                 self.ncs.append( NearbyCells(self.nct, x, y, z, r) )
                 attempts_remaining = self.nct.attempts_to_add
-                print(".", end="")
+                print(".", end="", flush=True)
             attempts_remaining -= 1
 
         print("\nSampling LWC cells: ", end="")
@@ -103,7 +103,7 @@ class CirclePhantomSample:
             if self.is_location_free(x, y, z, r):
                 self.lwcs.append( LoneleyWolfCell(self.lwct, x, y, z, r) )
                 attempts_remaining = self.lwct.attempts_to_add
-                print(".", end="")
+                print(".", end="", flush=True)
             attempts_remaining -= 1
 
 
